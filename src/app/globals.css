@@ -1,28 +1,65 @@
 :root {
-  /* Clean Orange/White Palette */
-  --background: 0 0% 98%;
-  /* Off-white background */
-  --foreground: 220 10% 20%;
+  /* Premium Slate/Orange Palette */
+  --background: 215 25% 97%;
+  /* Light Slate background */
+  --foreground: 220 20% 15%;
 
   --card: 0 0% 100%;
-  --card-foreground: 220 10% 20%;
+  --card-foreground: 220 20% 15%;
 
-  --primary: 26 90% 55%;
-  /* Vibrant Orange */
+  --primary: 24 95% 53%;
+  /* High-end Orange */
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 220 10% 96%;
-  /* Light Gray */
-  --secondary-foreground: 220 10% 20%;
+  --secondary: 215 20% 92%;
+  /* Slate Gray */
+  --secondary-foreground: 220 20% 20%;
 
-  --muted: 220 10% 96%;
-  --muted-foreground: 220 10% 45%;
+  --muted: 215 15% 94%;
+  --muted-foreground: 215 10% 45%;
+
+  --accent: 24 95% 95%;
+  /* Soft Orange Tint */
+  --accent-foreground: 24 95% 45%;
 
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 220 10% 90%;
-  --radius: 0.5rem;
+  --border: 215 15% 88%;
+  --radius: 12px;
+
+  /* Glassmorphism Presets */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-blur: blur(12px);
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.shadow-premium {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 * {

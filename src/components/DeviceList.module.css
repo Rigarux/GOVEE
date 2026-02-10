@@ -22,13 +22,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem;
-    background-color: white;
-    /* White cards on cream background */
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    /* Soft shadow */
-    transition: all 0.2s;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card:hover {
@@ -54,9 +54,8 @@
 }
 
 .on {
-    color: #fbbf24;
-    /* Amber/Orange for active */
-    background-color: #fef3c7;
+    color: #f59e0b;
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.4));
 }
 
 .info {

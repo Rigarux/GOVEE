@@ -16,11 +16,16 @@ interface GroupControlPanelProps {
     userRole?: string;
 }
 
-export const GroupControlPanel: React.FC<GroupControlPanelProps> = ({ group, onClose, userRole = 'admin' }) => {
+export const GroupControlPanel: React.FC<GroupControlPanelProps & { isSection?: boolean }> = ({
+    group,
+    onClose,
+    userRole = 'admin',
+    isSection = false
+}) => {
     const isAdmin = userRole === 'admin';
     const { devices: allDevices, updateDeviceState } = useDevices();
     const { updateGroup } = useGroups();
-    const { plans, updatePlanMarkers, updateDeviceSegments } = useFloorPlans();
+    const { plans, updateDeviceSegments } = useFloorPlans();
     const [brightness, setBrightness] = useState(100);
     const [color, setColor] = useState({ r: 255, g: 255, b: 255 });
     const [isEditingDevices, setIsEditingDevices] = useState(false);
@@ -76,10 +81,16 @@ export const GroupControlPanel: React.FC<GroupControlPanelProps> = ({ group, onC
 
         updateGroup(group.id, group.name, newDeviceIds);
     };
-
     return (
         <div className={styles.container}>
-            <Button variant="ghost" size="sm" onClick={onClose} className={styles.closeBtn}>×</Button>
+            {!isSection && (
+                <div className={styles.modalHeader}>
+                    <h2 className={styles.modalTitle}>Panel de Control</h2>
+                    <button onClick={onClose} className={styles.closeBtn} title="Cerrar">
+                        <X size={24} />
+                    </button>
+                </div>
+            )}
 
             {!isEditingDevices ? (
                 <>
@@ -88,13 +99,13 @@ export const GroupControlPanel: React.FC<GroupControlPanelProps> = ({ group, onC
                             className={`${styles.powerBtn} ${styles.powerOnBtn}`}
                             onClick={() => handlePowerToggle(true)}
                         >
-                            <Power size={18} /> ENCEDER TODO
+                            <Power size={18} /> ENCENDER
                         </Button>
                         <Button
                             className={`${styles.powerBtn} ${styles.powerOffBtn}`}
                             onClick={() => handlePowerToggle(false)}
                         >
-                            <Power size={18} /> APAGAR TODO
+                            <Power size={18} /> APAGAR
                         </Button>
                     </div>
 

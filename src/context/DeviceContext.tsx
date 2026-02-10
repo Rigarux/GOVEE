@@ -52,10 +52,19 @@ export function DeviceProvider({ children }: { children: ReactNode }) {
 
             if (res.ok) {
                 const results = await res.json();
-                results.forEach((res: any) => {
-                    if (res.properties) {
-                        updateDeviceState(res.device, res.properties);
-                    }
+                // Batch update state to prevent multiple re-renders
+                setDevices(prev => {
+                    const newDevices = [...prev];
+                    results.forEach((updated: any) => {
+                        const idx = newDevices.findIndex(d => d.device === updated.device);
+                        if (idx !== -1 && updated.properties) {
+                            newDevices[idx] = {
+                                ...newDevices[idx],
+                                properties: { ...newDevices[idx].properties, ...updated.properties }
+                            };
+                        }
+                    });
+                    return newDevices;
                 });
             }
         } catch (err) {
@@ -76,16 +85,21 @@ export function DeviceProvider({ children }: { children: ReactNode }) {
         return () => clearInterval(timer);
     }, [cooldownRemaining]);
 
-    // Polling for device states
+    // Polling for device states - Updated to 5 minutes
     useEffect(() => {
         if (devices.length === 0) return;
         const deviceList = devices.map(d => ({ device: d.device, model: d.model }));
+
+        // Initial refresh
         refreshDeviceStates(deviceList);
+
         const interval = setInterval(() => {
             refreshDeviceStates(deviceList);
-        }, 30000);
+        }, 300000); // 5 minutes (300,000 ms)
+
         return () => clearInterval(interval);
-    }, [devices.map(d => d.device).join(',')]);
+        // Only re-run if the physical set of devices changes
+    }, [devices.length > 0 ? devices.map(d => d.device).join(',') : '']);
 
     // Listen for storage changes
     useEffect(() => {
@@ -108,8 +122,17 @@ export function DeviceProvider({ children }: { children: ReactNode }) {
         );
     };
 
+    const contextValue = React.useMemo(() => ({
+        devices,
+        loading,
+        cooldownRemaining,
+        refreshDevices,
+        refreshDeviceStates,
+        updateDeviceState
+    }), [devices, loading, cooldownRemaining]);
+
     return (
-        <DeviceContext.Provider value={{ devices, loading, cooldownRemaining, refreshDevices, refreshDeviceStates, updateDeviceState }}>
+        <DeviceContext.Provider value={contextValue}>
             {children}
         </DeviceContext.Provider>
     );

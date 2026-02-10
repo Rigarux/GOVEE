@@ -2,19 +2,21 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: hsl(var(--background));
+    background: radial-gradient(circle at top left, #fff7ed 0%, #f8fafc 40%);
     overflow: hidden;
 }
 
 .header {
-    height: 60px;
-    background-color: white;
-    border-bottom: 1px solid #e5e7eb;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
+    padding: 0 3rem;
     z-index: 20;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 .pageTitle {
@@ -33,32 +35,34 @@
     gap: 1.5rem;
 }
 
-/* TOP SECTION: GRID */
+/* TOP SECTION: GRID (NOW FULL SCREEN) */
 .topSection {
-    flex-shrink: 0;
-    max-height: 35vh;
+    flex: 1;
     overflow-y: auto;
+    padding: 1rem 0;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
-    padding-bottom: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding-bottom: 2rem;
 }
 
 .roomCard {
-    background-color: white;
-    border-radius: 8px;
-    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    border: 1px solid #e5e7eb;
-    transition: all 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    /* For actions */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .roomCard:hover .roomActions {
@@ -67,18 +71,18 @@
 
 .roomActions {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 12px;
+    right: 12px;
     display: flex;
-    gap: 4px;
+    gap: 6px;
     opacity: 0;
     transition: opacity 0.2s;
 }
 
 .actionBtn {
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
     background-color: #f3f4f6;
     border: 1px solid #e5e7eb;
     color: #6b7280;
@@ -102,23 +106,23 @@
 
 .roomCard:hover {
     border-color: #f97316;
-    /* Orange */
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(249, 115, 22, 0.15);
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .selectedCard {
-    border-color: #f97316;
-    /* Orange */
-    background-color: #fff7ed;
-    /* Orange-50 */
+    border: 2px solid #f97316 !important;
+    background: rgba(255, 119, 0, 0.05) !important;
+    box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.1);
 }
 
 .roomIconPlaceholder {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     background-color: #f3f4f6;
-    border-radius: 50%;
-    margin-bottom: 0.75rem;
+    border-radius: 24px;
+    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,103 +130,162 @@
 }
 
 .roomLabel {
-    font-weight: 500;
-    color: #374151;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
 }
 
 .addRoomCard {
-    background-color: #f9fafb;
-    border: 2px dashed #e5e7eb;
-    border-radius: 8px;
-    padding: 1rem;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transition: all 0.3s;
 }
 
-/* BOTTOM SECTION: DETAIL */
-.bottomSection {
-    flex: 1;
-    display: flex;
-    gap: 1.5rem;
-    overflow: hidden;
+.addRoomCard:hover {
+    border-color: #f97316;
+    background: rgba(255, 255, 255, 0.5);
 }
 
-.leftColumn {
-    width: 280px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.rightColumn {
-    flex: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Control Button - White with Orange Accent */
-.controlPanelButton {
-    background-color: white;
-    height: 80px;
-    border-radius: 8px;
+/* ROOM DASHBOARD MODAL */
+.roomModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    z-index: 2000;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.roomModalContent {
+    background: #f8fafc;
+    width: 100%;
+    height: 100%;
+    max-width: 1600px;
+    max-height: 1000px;
+    border-radius: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.roomModalHeader {
+    height: 80px;
+    padding: 0 3rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+}
+
+.roomModalTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
     gap: 1rem;
+}
+
+.roomModalClose {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: #64748b;
+    border: none;
     cursor: pointer;
-    border: 1px solid #e5e7eb;
-    color: #f97316;
-    /* Orange text */
     transition: all 0.2s;
 }
 
-.controlPanelButton:hover {
-    border-color: #f97316;
-    background-color: #fff7ed;
+.roomModalClose:hover {
+    background: #fee2e2;
+    color: #ef4444;
+    transform: rotate(90deg);
 }
 
-/* Device List Container - Clean White */
-.deviceListContainer {
-    background-color: white;
+.roomModalBody {
     flex: 1;
-    border-radius: 8px;
-    padding: 1rem;
+    display: flex;
+    overflow: hidden;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.roomModalSidebar {
+    width: 320px;
     display: flex;
     flex-direction: column;
-    border: 1px solid #e5e7eb;
-    overflow: hidden;
+    gap: 1.5rem;
+    overflow-y: auto;
+    padding-right: 0.5rem;
 }
 
-.deviceListTitle {
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
-}
-
-/* Floor Plan Container - Maximize Area */
-.floorPlanContainer {
+.roomModalMain {
     flex: 1;
-    background-color: white;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    padding: 0;
-    /* Remove padding to let editor fill */
-    position: relative;
-    display: flex;
+    background: white;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-.controlPanelPopover {
-    position: absolute;
-    top: 0;
-    left: 300px;
-    z-index: 50;
+/* SECTION STYLES IN MODAL */
+.modalSection {
     background: white;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.modalSectionTitle {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+}
+
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }

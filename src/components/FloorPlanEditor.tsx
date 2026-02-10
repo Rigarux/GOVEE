@@ -454,7 +454,7 @@ export const FloorPlanEditor = ({ roomId, userRole = 'admin' }: { roomId?: strin
                                     onContextMenu={(e) => handleMarkerContextMenu(e, marker.id)}
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        if (!hasMovedRef.current) {
+                                        if (!isAdmin && !hasMovedRef.current) {
                                             handleMarkerPowerToggle(e, marker);
                                         }
                                     }}
@@ -522,16 +522,21 @@ export const FloorPlanEditor = ({ roomId, userRole = 'admin' }: { roomId?: strin
                     style={{ top: contextMenu.y, left: contextMenu.x }}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <div
-                        className={styles.contextMenuItem}
-                        onClick={() => {
-                            const marker = activePlan?.markers.find(m => m.id === contextMenu.markerId);
-                            if (marker) handleMarkerPowerToggle({ stopPropagation: () => { } } as any, marker);
-                            setContextMenu(null);
-                        }}
-                    >
-                        <Power size={14} /> Encender / Apagar
-                    </div>
+                    {/* Power Toggle removed for Admin as per request */}
+                    {false && (
+                        <div
+                            className={styles.contextMenuItem}
+                            onClick={() => {
+                                if (contextMenu) {
+                                    const marker = activePlan?.markers.find(m => m.id === contextMenu.markerId);
+                                    if (marker) handleMarkerPowerToggle({ stopPropagation: () => { } } as any, marker);
+                                    setContextMenu(null);
+                                }
+                            }}
+                        >
+                            <Power size={14} /> Encender / Apagar
+                        </div>
+                    )}
                     {activePlan?.markers.find(m => m.id === contextMenu.markerId)?.deviceId && (
                         <div
                             className={styles.contextMenuItem}

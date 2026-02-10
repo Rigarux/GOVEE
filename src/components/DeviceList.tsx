@@ -14,9 +14,9 @@ export const DeviceList = ({ deviceIds, userRole = 'admin' }: { deviceIds?: stri
         return <div className={styles.loading}>Cargando dispositivos...</div>;
     }
 
-    const filteredDevices = deviceIds
-        ? devices.filter(d => deviceIds.includes(d.device))
-        : devices;
+    const filteredDevices = React.useMemo(() =>
+        deviceIds ? devices.filter(d => deviceIds.includes(d.device)) : devices,
+        [devices, deviceIds]);
 
     return (
         <div className={styles.container}>

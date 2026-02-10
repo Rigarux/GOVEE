@@ -140,49 +140,52 @@ const RoomSelectionGrid = ({
     );
 };
 
-// Bottom Section: Details
-const RoomDetailView = ({ group, userRole }: { group: DeviceGroup, userRole: string | null }) => {
-    const [showControlPanel, setShowControlPanel] = useState(false);
-
+// Comprehensive Room Dashboard Modal
+const RoomDetailModal = ({ group, userRole, onClose }: { group: DeviceGroup, userRole: string | null, onClose: () => void }) => {
     return (
-        <div className={styles.bottomSection}>
-            {/* Left Column: Control Panel Button & Device List */}
-            <div className={styles.leftColumn}>
-                {/* Peach Control Panel Button */}
-                <div
-                    className={styles.controlPanelButton}
-                    onClick={() => setShowControlPanel(!showControlPanel)}
-                >
-                    <Settings size={28} />
-                    <span className="text-lg font-semibold">Cuadro de control</span>
-                </div>
-
-                {/* Cream Device List */}
-                <div className={styles.deviceListContainer}>
-                    <h3 className={styles.deviceListTitle}>Dispositivos</h3>
-                    <div className="flex-1 overflow-auto">
-                        <DeviceList deviceIds={group.deviceIds} userRole={userRole || undefined} />
+        <div className={styles.roomModalOverlay} onClick={onClose}>
+            <div className={styles.roomModalContent} onClick={(e) => e.stopPropagation()}>
+                {/* Header */}
+                <header className={styles.roomModalHeader}>
+                    <div className={styles.roomModalTitle}>
+                        <Home size={28} className="text-orange-500" />
+                        <span>{group.name}</span>
                     </div>
+                    <button className={styles.roomModalClose} onClick={onClose} title="Cerrar">
+                        <X size={24} />
+                    </button>
+                </header>
+
+                {/* Body */}
+                <div className={styles.roomModalBody}>
+                    {/* Sidebar: Controls & Devices */}
+                    <aside className={styles.roomModalSidebar}>
+                        {/* Adjustments Section */}
+                        <div className={styles.modalSection}>
+                            <h3 className={styles.modalSectionTitle}>Ajustes de Grupo</h3>
+                            <GroupControlPanel
+                                group={group}
+                                onClose={onClose}
+                                userRole={userRole || undefined}
+                                isSection
+                            />
+                        </div>
+
+                        {/* Device List Section */}
+                        <div className={styles.modalSection} style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '300px' }}>
+                            <h3 className={styles.modalSectionTitle}>Dispositivos</h3>
+                            <div className="flex-1 overflow-auto">
+                                <DeviceList deviceIds={group.deviceIds} userRole={userRole || undefined} />
+                            </div>
+                        </div>
+                    </aside>
+
+                    {/* Main Area: Floor Plan */}
+                    <main className={styles.roomModalMain}>
+                        <FloorPlanEditor roomId={group.id} userRole={userRole || undefined} />
+                    </main>
                 </div>
             </div>
-
-            {/* Right Column: Floor Plan (Yellow Area) */}
-            <div className={styles.rightColumn}>
-                <div className={styles.floorPlanContainer}>
-                    <FloorPlanEditor roomId={group.id} userRole={userRole || undefined} />
-                </div>
-            </div>
-
-            {/* Inline Popover for Group Control if button clicked */}
-            {showControlPanel && (
-                <div className={styles.controlPanelPopover}>
-                    <GroupControlPanel
-                        group={group}
-                        onClose={() => setShowControlPanel(false)}
-                        userRole={userRole || undefined}
-                    />
-                </div>
-            )}
         </div>
     );
 };
@@ -248,7 +251,7 @@ function DashboardLayout() {
     }
 
     return (
-        <div className={styles.wrapper}>
+        <div className={`${styles.wrapper} fade-in`}>
             <RateLimitOverlay secondsRemaining={cooldownRemaining} />
             <header className={styles.header}>
                 <div className="font-bold text-lg text-gray-700">Intelaf S,A</div>
@@ -267,12 +270,12 @@ function DashboardLayout() {
                     userRole={userRole}
                 />
 
-                {selectedGroup ? (
-                    <RoomDetailView group={selectedGroup} userRole={userRole} />
-                ) : (
-                    <div className="flex-1 flex items-center justify-center text-gray-400 bg-gray-50 m-4 rounded-xl border-2 border-dashed border-gray-200">
-                        <p className="text-xl">Seleccione una habitación arriba para ver los detalles</p>
-                    </div>
+                {selectedGroup && (
+                    <RoomDetailModal
+                        group={selectedGroup}
+                        userRole={userRole}
+                        onClose={() => setSelectedGroupId(null)}
+                    />
                 )}
             </main>
         </div>
