@@ -12,6 +12,7 @@ import { Plus, Home, Settings, Pencil, Trash2, Check, X } from 'lucide-react';
 import styles from './page.module.css';
 import { GroupControlPanel } from '@/components/GroupControlPanel';
 import { RateLimitOverlay } from '@/components/RateLimitOverlay';
+import { SplashScreen } from '@/components/SplashScreen';
 
 // Top Section: Room Grid
 const RoomSelectionGrid = ({
@@ -247,17 +248,18 @@ function DashboardLayout() {
     };
 
     if (!isAuthorized) {
-        return <div className="h-screen flex items-center justify-center bg-peach">Verificando acceso...</div>;
+        return <div className="h-screen flex items-center justify-center bg-peach text-gray-700">Verificando acceso...</div>;
     }
 
     return (
         <div className={`${styles.wrapper} fade-in`}>
+            <SplashScreen />
             <RateLimitOverlay secondsRemaining={cooldownRemaining} />
             <header className={styles.header}>
-                <div className="font-bold text-lg text-gray-700">Intelaf S,A</div>
+                <div className="font-bold text-lg text-white">Intelaf S,A</div>
                 <h1 className={styles.pageTitle}>Remote light</h1>
                 <div className="flex items-center gap-4">
-                    <Button variant="ghost" size="sm" onClick={handleLogout} className="text-gray-500 hover:text-red-500">
+                    <Button variant="ghost" size="sm" onClick={handleLogout} className="text-white hover:text-red-200">
                         Cerrar Sesión
                     </Button>
                 </div>
@@ -277,6 +279,10 @@ function DashboardLayout() {
                         onClose={() => setSelectedGroupId(null)}
                     />
                 )}
+
+                <footer className={styles.footer}>
+                    <div className={styles.footerText}>Sistema de uso interno Intelaf 2026.</div>
+                </footer>
             </main>
         </div>
     );
