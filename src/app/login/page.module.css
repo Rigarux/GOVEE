@@ -1,0 +1,124 @@
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff7ed; /* Soft peach/cream background */
+    background-image: radial-gradient(circle at 20% 20%, #ffedd5 0%, transparent 40%),
+                      radial-gradient(circle at 80% 80%, #ffedd5 0%, transparent 40%);
+}
+
+.loginCard {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 
+                0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #fed7aa;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logoPlaceholder {
+    width: 60px;
+    height: 60px;
+    background-color: #f97316;
+    border-radius: 12px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #431407;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    font-size: 0.875rem;
+    color: #9a3412;
+    opacity: 0.8;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #431407;
+}
+
+.input {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #fdba74;
+    font-size: 1rem;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.input:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.submitBtn {
+    background-color: #f97316;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 0.5rem;
+}
+
+.submitBtn:hover {
+    background-color: #ea580c;
+}
+
+.submitBtn:disabled {
+    background-color: #fdba74;
+    cursor: not-allowed;
+}
+
+.error {
+    background-color: #fef2f2;
+    color: #b91c1c;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    border: 1px solid #fecaca;
+    text-align: center;
+}
+
+.footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #9a3412;
+    opacity: 0.6;
+}

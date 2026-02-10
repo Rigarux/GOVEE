@@ -1,0 +1,102 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+}
+
+.closeBtn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.section label {
+    font-size: 0.9rem;
+    color: hsl(var(--muted-foreground));
+}
+
+.deviceList {
+    border-top: 1px solid hsl(var(--border));
+    padding-top: 1rem;
+}
+
+.sublabel {
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    color: hsl(var(--muted-foreground));
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.chipWrapper {
+    display: flex;
+    align-items: center;
+    background-color: hsl(var(--secondary));
+    border-radius: 999px;
+    padding-right: 4px;
+}
+
+.chip {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+}
+
+.segmentIconBtn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: hsl(var(--muted-foreground));
+    transition: all 0.2s;
+}
+
+.segmentIconBtn:hover {
+    background-color: rgba(249, 115, 22, 0.1);
+    color: #f97316;
+}
+
+.powerSection {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.powerBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.powerOnBtn:hover {
+    background-color: #22c55e !important;
+    border-color: #22c55e !important;
+}
+
+.powerOffBtn:hover {
+    background-color: #ef4444 !important;
+    border-color: #ef4444 !important;
+}
+
+.manageBtn {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+}

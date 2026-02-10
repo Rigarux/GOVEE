@@ -1,0 +1,78 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 320px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.brightnessGrid {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.brightnessBox {
+    flex: 1;
+    aspect-ratio: 1;
+    /* Square boxes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.brightnessBox:hover {
+    border-color: #f97316;
+    background-color: #fff7ed;
+}
+
+.brightnessBoxActive {
+    background-color: #f97316;
+    color: white;
+    border-color: #f97316;
+    box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.3);
+}

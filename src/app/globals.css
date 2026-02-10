@@ -1,0 +1,40 @@
+:root {
+  /* Clean Orange/White Palette */
+  --background: 0 0% 98%;
+  /* Off-white background */
+  --foreground: 220 10% 20%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 220 10% 20%;
+
+  --primary: 26 90% 55%;
+  /* Vibrant Orange */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 220 10% 96%;
+  /* Light Gray */
+  --secondary-foreground: 220 10% 20%;
+
+  --muted: 220 10% 96%;
+  --muted-foreground: 220 10% 45%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 220 10% 90%;
+  --radius: 0.5rem;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
